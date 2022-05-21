@@ -1,0 +1,3 @@
+一、服务端：NeteaseCloudMusicApi  https://github.com/Binaryify/NeteaseCloudMusicApi
+二、官方网易云音乐web移动端：https://y.music.163.com/m/
+三、搭建项目结构
