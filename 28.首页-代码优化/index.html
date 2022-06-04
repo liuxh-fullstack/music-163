@@ -158,19 +158,23 @@
             <div class="category-bottom">
                <ul>
                    <% for(let i=0,len=result.length;i<len;i++){ %>
-                    <li>
+                    <li style="width:<%=result[i].width+'rem'%>">
                         <div>
                             <img src="<%=result[i].picUrl%>" alt="" class="fluid-img">
-                            <p>
-                                <img src="images/recommend/home-small-play.png" alt="">
-                                <span><%=result[i].playCount%></span>
-                            </p>
-                            <p>
-                                <img src="images/exclusive/home-small-exclusive.png" alt="">
-                            </p>
-                            <p>
-                                <img src="images/dj/home-small-dj.png" alt="">
-                            </p>
+                            <% if(title==="推荐歌单"){ %>
+                                <p class="p1">
+                                    <img src="images/recommend/home-small-play.png" alt="">
+                                    <span><%=result[i].playCount%></span>
+                                </p>
+                            <% } else if(title==="独家放送") { %>
+                                <p class="p2">
+                                    <img src="images/exclusive/home-small-exclusive.png" alt="">
+                                </p>
+                            <% } else if(title==="主播电台") { %>
+                                <p class="p3">
+                                    <img src="images/dj/home-small-dj.png" alt="">
+                                </p>
+                            <% } %>
                         </div>
                         <p class="category-title"><%=result[i].name%></p>
                         <p class="category-singer"><%=result[i].artistName%></p>

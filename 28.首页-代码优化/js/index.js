@@ -155,10 +155,13 @@ $(function () {
     HomeApis.getHomeRecommend().then(function (data) {
         data.title = "推荐歌单"
         data.subTitle = "歌单广场"
+        data.result.forEach(function (obj) {
+            obj.width = 216 / 100
+        })
         // console.log(data)
         let html = template('category', data)
         $(".recommend").html(html)
-        $(".category-title").forEach(function (ele) {
+        $(".recommend .category-title").forEach(function (ele) {
             $clamp(ele, { clamp: 2 })
         })
         myScroll.refresh()
@@ -169,10 +172,16 @@ $(function () {
     HomeApis.getHomeExclusive().then(function (data) {
         data.title = "独家放送"
         data.subTitle = "网易出品"
-        // console.log(data)
+        data.result.forEach(function (obj, index) {
+            obj.width = 334 / 100
+            if (index === 2) {
+                obj.width = 690 / 100
+            }
+        })
+        console.log(data)
         let html = template('category', data)
         $(".exclusive").html(html)
-        $(".category-title").forEach(function (ele) {
+        $(".exclusive .category-title").forEach(function (ele) {
             $clamp(ele, { clamp: 2 })
         })
         myScroll.refresh()
@@ -186,14 +195,15 @@ $(function () {
         data.result = data["albums"]
         data.result.forEach(function (obj) {
             obj.artistName = obj.artist.name
+            obj.width = 216 / 100
         })
         // console.log(data)
         let html = template('category', data)
         $(".album").html(html)
-        $(".category-title").forEach(function (ele) {
+        $(".album .category-title").forEach(function (ele) {
             $clamp(ele, { clamp: 2 })
         })
-        $(".category-singer").forEach(function (ele) {
+        $(".album .category-singer").forEach(function (ele) {
             $clamp(ele, { clamp: 1 })
         })
         myScroll.refresh()
@@ -204,13 +214,16 @@ $(function () {
     HomeApis.getHomeMV().then(function (data) {
         data.title = "推荐MV"
         data.subTitle = "更多MV"
+        data.result.forEach(function (obj) {
+            obj.width = 334 / 100
+        })
         // console.log(data)
         let html = template('category', data)
         $(".mv").html(html)
-        $(".category-title").forEach(function (ele) {
-            $clamp(ele, { clamp: 1 })
+        $(".mv .category-title").forEach(function (ele) {
+            $clamp(ele, { clamp: 1 }) //会被后面的.categoy-title覆盖
         })
-        $(".category-singer").forEach(function (ele) {
+        $(".mv .category-singer").forEach(function (ele) {
             $clamp(ele, { clamp: 1 })
         })
         myScroll.refresh()
@@ -221,10 +234,13 @@ $(function () {
     HomeApis.getHomeDJ().then(function (data) {
         data.title = "主播电台"
         data.subTitle = "更多主播"
+        data.result.forEach(function (obj) {
+            obj.width = 216 / 100
+        })
         // console.log(data)
         let html = template('category', data)
         $(".dj").html(html)
-        $(".category-title").forEach(function (ele) {
+        $(".dj .category-title").forEach(function (ele) {
             $clamp(ele, { clamp: 2 })
         })
         myScroll.refresh()
