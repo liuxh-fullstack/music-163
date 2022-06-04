@@ -152,73 +152,72 @@ $(function () {
     $(".nav i").html(new Date().getDate())
 
 
-    /* 创建推荐歌单 */
-    /* 限制文字显示两行，超出部分用...表示 */
-    // 单个
-    // $clamp($(".recommend-title")[0], 2)
-
     HomeApis.getHomeRecommend().then(function (data) {
-        console.log(data)
-        let html = template("recommendItem", data)
-        $(".recommend-bottom").html(html)
-        myScroll.refresh() //iscroll需要重新计算高度
-        //全部
-        $(".recommend-title").forEach(function (ele) {
+        data.title = "推荐歌单"
+        data.subTitle = "歌单广场"
+        // console.log(data)
+        let html = template('category', data)
+        $(".recommend").html(html)
+        $(".category-title").forEach(function (ele) {
             $clamp(ele, { clamp: 2 })
         })
+        myScroll.refresh()
     }).catch(function (error) {
         console.log(error)
     })
-
-    /**创建独家放送 */
 
     HomeApis.getHomeExclusive().then(function (data) {
-        console.log(data)
-        let html = template("exclusiveItem", data)
-        $(".exclusive-bottom").html(html)
-        myScroll.refresh() //iscroll需要重新计算高度
-        $(".exclusive-title").forEach(function (ele) {
+        data.title = "独家放送"
+        data.subTitle = "网易出品"
+        // console.log(data)
+        let html = template('category', data)
+        $(".exclusive").html(html)
+        $(".category-title").forEach(function (ele) {
             $clamp(ele, { clamp: 2 })
         })
+        myScroll.refresh()
     }).catch(function (error) {
         console.log(error)
     })
 
-    /* 创建新碟新歌区域 */
     HomeApis.getHomeAlbum().then(function (data) {
+        data.title = "新碟新歌"
+        data.subTitle = "更多新碟"
         // console.log(data)
-        let html = template("albumItem", data)
-        $(".album-bottom").html(html)
-        myScroll.refresh() //iscroll需要重新计算高度
-        $(".album-title").forEach(function (ele) {
-            $clamp(ele, { clamp: 1 })
+        let html = template('category', data)
+        $(".album").html(html)
+        $(".category-title").forEach(function (ele) {
+            $clamp(ele, { clamp: 2 })
         })
+        myScroll.refresh()
     }).catch(function (error) {
         console.log(error)
     })
 
-    /* 创建推荐mv区域 */
     HomeApis.getHomeMV().then(function (data) {
+        data.title = "推荐MV"
+        data.subTitle = "更多MV"
         // console.log(data)
-        let html = template("mvItem", data)
-        $(".mv-bottom").html(html)
-        myScroll.refresh() //iscroll需要重新计算高度
-        $(".mv-title").forEach(function (ele) {
-            $clamp(ele, { clamp: 1 })
+        let html = template('category', data)
+        $(".mv").html(html)
+        $(".category-title").forEach(function (ele) {
+            $clamp(ele, { clamp: 2 })
         })
+        myScroll.refresh()
     }).catch(function (error) {
         console.log(error)
     })
 
-    /* 创建主播电台区域 */
     HomeApis.getHomeDJ().then(function (data) {
+        data.title = "主播电台"
+        data.subTitle = "更多主播"
         // console.log(data)
-        let html = template("djItem", data)
-        $(".dj-bottom").html(html)
-        myScroll.refresh() //iscroll需要重新计算高度
-        $(".dj-title").forEach(function (ele) {
-            $clamp(ele, { clamp: 1 })
+        let html = template('category', data)
+        $(".dj").html(html)
+        $(".category-title").forEach(function (ele) {
+            $clamp(ele, { clamp: 2 })
         })
+        myScroll.refresh()
     }).catch(function (error) {
         console.log(error)
     })

@@ -119,34 +119,12 @@
                 </ul>
             </div>
 
-            <!-- category -->
-            <div class="category">
-                <div class="category-top">
-                    <h3>推荐歌单</h3>
-                    <span>歌单广场</span>
-                </div>
-                <div class="category-bottom">
-                   <ul>
-                       <li>
-                           <div>
-                               <img src="https://img0.baidu.com/it/u=243393863,3221812062&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500" alt="" class="fluid-img">
-                               <p>
-                                   <img src="images/recommend/home-small-play.png" alt="">
-                                   <span>38.1万</span>
-                               </p>
-                               <p>
-                                   <img src="images/exclusive/home-small-exclusive.png" alt="">
-                               </p>
-                               <p>
-                                   <img src="images/dj/home-small-dj.png" alt="">
-                               </p>
-                           </div>
-                           <p class="category-title">我是一台莫得感情的听歌机器</p>
-                           <p class="category-singer">Jonathan</p>
-                       </li>
-                   </ul>
-                </div>
-            </div>
+            <div class="recommend"></div>
+            <div class="exclusive"></div>
+            <div class="album"></div>
+            <div class="mv"></div>
+            <div class="dj"></div>
+            
 
             <!-- 上拉加载更多 -->
             <div class="pull-up">
@@ -169,109 +147,36 @@
         </div>
         <% } %>
     </script>
-    <!-- 推荐歌单 -->
-    <script type="text/html" id="recommendItem">
-        <ul>
-            <% for(let i=0,len=6;i<len;i++) {%>
-            <li>
-                <div>
-                    <img src="<%=result[i].picUrl %>" class="fluid-img">
-                    <p>
-                        <img src="images/recommend/home-small-play.png" alt="">
-                        <%
-                        let res = 0;
-                        let num = result[i].playCount
-                        if(num / 100000000 > 1){
-                            let temp = num / 100000000 + "";
-                            if(temp.indexOf(".") === -1){
-                                res = num / 100000000 + "亿";
-                            }else{
-                                res = (num / 100000000).toFixed(1) + "亿";
-                            }
-                        }else if(num / 10000 > 1){
-                            let temp = num / 10000 + "";
-                            if(temp.indexOf(".") === -1){
-                                res = num / 10000 + "万";
-                            }else{
-                                res = (num / 10000).toFixed(1) + "万";
-                            }
-                        }else{
-                            res = num;
-                        }
-                        %>
-                        <span><%=res%></span>
-                    </p>
-                </div>
-                <p class="recommend-title"><%=result[i].name %></p>
-            </li>
-            <% } %>
-        </ul>
-    </script>
-
-    <!-- 独家放送 -->
-    <script type="text/html" id="exclusiveItem">
-        <ul>
-            <% for(let i=0,len=result.length;i<len;i++) {%>
-                <li>
-                    <div>
-                        <i></i>
-                        <img src="<%=result[i].sPicUrl %>" class="fluid-img">
-                    </div>
-                    <p class="exclusive-title"><%=result[i].name %></p>
-                </li>
-            <% } %>
-        </ul>
-    </script>
-
-    <!-- 新歌新碟 -->
-    <script type="text/html" id="albumItem">
-        <ul>
-            <% for(let i=0,len=albums.length;i<len;i++) {%>
-            <li>
-                <div>
-                    <img src="<%=albums[i].picUrl %>" class="fluid-img">
-                </div>
-                <p class="album-title"><%=albums[i].name %></p>
-                <p class="album-singer"><%=albums[i].artists[0].name %></p>
-            </li>
-            <% } %>
-        </ul>
-    </script>
-
-    <!-- 推荐MV -->
-    <script type="text/html" id="mvItem">
-        <ul>
-            <% for(let i=0,len=result.length;i<len;i++) {%>
-            <li>
-                <div>
-                    <img src="<%=result[i].picUrl %>" class="fluid-img">
-                    <p>
-                        <img src="images/mv/home-small-video.png" alt="">
-                        <span><%=result[i].playCount%></span>
-                    </p>
-                </div>
-                <p class="mv-title"><%=result[i].name %></p>
-                <p class="mv-singer"><%=result[i].artistName %></p>
-            </li>
-            <% } %>
-        </ul>
-    </script>
-
-    <!-- 主播电台 -->
-    <script type="text/html" id="djItem">
-        <ul>
-            <% for(let i=0,len=result.length;i<len;i++) {%>
-            <li>
-                <div>
-                    <img src="<%=result[i].picUrl %>" class="fluid-img">
-                    <p>
-                        <img src="images/mv/home-small-video.png" alt="">
-                    </p>
-                </div>
-                <p class="dj-title"><%=result[i].name %></p>
-            </li>
-            <% } %>
-        </ul>
+    
+    <!-- 通用模板 -->
+    <script type="text/html" id="category">
+        <div class="category">
+            <div class="category-top">
+                <h3><%=title%></h3>
+                <span><%=subTitle%></span>
+            </div>
+            <div class="category-bottom">
+               <ul>
+                   <li>
+                       <div>
+                           <img src="https://img0.baidu.com/it/u=243393863,3221812062&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500" alt="" class="fluid-img">
+                           <p>
+                               <img src="images/recommend/home-small-play.png" alt="">
+                               <span>38.1万</span>
+                           </p>
+                           <p>
+                               <img src="images/exclusive/home-small-exclusive.png" alt="">
+                           </p>
+                           <p>
+                               <img src="images/dj/home-small-dj.png" alt="">
+                           </p>
+                       </div>
+                       <p class="category-title">我是一台莫得感情的听歌机器</p>
+                       <p class="category-singer">Jonathan</p>
+                   </li>
+               </ul>
+            </div>
+        </div>
     </script>
 
     <!-- 底部 -->
