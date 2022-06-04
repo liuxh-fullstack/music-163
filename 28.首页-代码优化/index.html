@@ -157,23 +157,25 @@
             </div>
             <div class="category-bottom">
                <ul>
-                   <li>
-                       <div>
-                           <img src="https://img0.baidu.com/it/u=243393863,3221812062&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500" alt="" class="fluid-img">
-                           <p>
-                               <img src="images/recommend/home-small-play.png" alt="">
-                               <span>38.1万</span>
-                           </p>
-                           <p>
-                               <img src="images/exclusive/home-small-exclusive.png" alt="">
-                           </p>
-                           <p>
-                               <img src="images/dj/home-small-dj.png" alt="">
-                           </p>
-                       </div>
-                       <p class="category-title">我是一台莫得感情的听歌机器</p>
-                       <p class="category-singer">Jonathan</p>
-                   </li>
+                   <% for(let i=0,len=result.length;i<len;i++){ %>
+                    <li>
+                        <div>
+                            <img src="<%=result[i].picUrl%>" alt="" class="fluid-img">
+                            <p>
+                                <img src="images/recommend/home-small-play.png" alt="">
+                                <span><%=result[i].playCount%></span>
+                            </p>
+                            <p>
+                                <img src="images/exclusive/home-small-exclusive.png" alt="">
+                            </p>
+                            <p>
+                                <img src="images/dj/home-small-dj.png" alt="">
+                            </p>
+                        </div>
+                        <p class="category-title"><%=result[i].name%></p>
+                        <p class="category-singer"><%=result[i].artistName%></p>
+                    </li>
+                    <% } %>
                </ul>
             </div>
         </div>

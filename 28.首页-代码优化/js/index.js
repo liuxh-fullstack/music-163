@@ -183,11 +183,18 @@ $(function () {
     HomeApis.getHomeAlbum().then(function (data) {
         data.title = "新碟新歌"
         data.subTitle = "更多新碟"
+        data.result = data["albums"]
+        data.result.forEach(function (obj) {
+            obj.artistName = obj.artist.name
+        })
         // console.log(data)
         let html = template('category', data)
         $(".album").html(html)
         $(".category-title").forEach(function (ele) {
             $clamp(ele, { clamp: 2 })
+        })
+        $(".category-singer").forEach(function (ele) {
+            $clamp(ele, { clamp: 1 })
         })
         myScroll.refresh()
     }).catch(function (error) {
@@ -201,7 +208,10 @@ $(function () {
         let html = template('category', data)
         $(".mv").html(html)
         $(".category-title").forEach(function (ele) {
-            $clamp(ele, { clamp: 2 })
+            $clamp(ele, { clamp: 1 })
+        })
+        $(".category-singer").forEach(function (ele) {
+            $clamp(ele, { clamp: 1 })
         })
         myScroll.refresh()
     }).catch(function (error) {
