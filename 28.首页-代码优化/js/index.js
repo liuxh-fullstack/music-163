@@ -118,28 +118,27 @@ $(function () {
         }, 3000)
     }
 
-    /**创建首页的Banner */
-    let mySwipper = new Swiper(".swiper-container", {
-        autoplay: {
-            delay: 1000
-        },
-        loop: true,//循环滚动
-        pagination: {// 分页器
-            el: '.swiper-pagination',
-            bulletClass: 'my-bullet',
-            bulletActiveClass: 'my-bullet-active'
-        },
-        observer: true,
-        observeParents: true,
-        observeChildren: true
-    })
-
-
     /* 获取Banner的数据 */
     HomeApis.getHomeBanner().then(function (data) {
         // console.log("首页Banner的data：",data)
         let html = template("bannerSlide", data)
         $(".swiper-wrapper").html(html)
+        // 获取完数据再创建轮播图，这样才能对轮播图的参数真正起作用
+        new Swiper(".swiper-container", {
+            autoplay: {
+                delay: 1000,
+                disableOnInteraction: false
+            },
+            loop: true,//循环滚动
+            pagination: {// 分页器
+                el: '.swiper-pagination',
+                bulletClass: 'my-bullet',
+                bulletActiveClass: 'my-bullet-active'
+            },
+            observer: true,
+            observeParents: true,
+            observeChildren: true
+        })
         myScroll.refresh()//iscroll需要重新计算高度
     }).catch(function (error) {
         console.log(error)
@@ -157,6 +156,7 @@ $(function () {
         data.subTitle = "歌单广场"
         data.result.forEach(function (obj) {
             obj.width = 216 / 100
+            obj.playCount = formatNum(obj.playCount)
         })
         // console.log(data)
         let html = template('category', data)
@@ -247,4 +247,26 @@ $(function () {
     }).catch(function (error) {
         console.log(error)
     })
+
+    function formatNum(num) {
+        let res = 0;
+        if (num / 100000000 > 1) {
+            let temp = num / 100000000 + "";
+            if (temp.indexOf(".") === -1) {
+                res = num / 100000000 + "亿";
+            } else {
+                res = (num / 100000000).toFixed(1) + "亿";
+            }
+        } else if (num / 10000 > 1) {
+            let temp = num / 10000 + "";
+            if (temp.indexOf(".") === -1) {
+                res = num / 10000 + "万";
+            } else {
+                res = (num / 10000).toFixed(1) + "万";
+            }
+        } else {
+            res = num;
+        }
+        return res
+    }
 })
