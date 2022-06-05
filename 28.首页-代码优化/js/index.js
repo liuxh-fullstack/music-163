@@ -55,12 +55,17 @@ $(function () {
 
     let isPullDown = false
     let isRefresh = false
-    let bottomHeight = $(".pull-up").height()
-    // console.log("bottomHeight:", bottomHeight)
 
-    let maxOffSetY = myScroll.maxScrollY - bottomHeight // maxScrollY是属于myScroll的
-    let isPullUp = false
+    // 官方首页是没有上拉加载的，所以不需要上拉加载的代码了，所以就把上拉加载的所有相关代码给移除(注释)掉
+    // let bottomHeight = $(".pull-up").height()
+    // // console.log("bottomHeight:", bottomHeight)
 
+    // let maxOffSetY = myScroll.maxScrollY - bottomHeight // maxScrollY是属于myScroll的
+    // let isPullUp = false
+
+    /*
+    由于IScroll中的数据都是从网络中加载的，所以一进来IScroll中没有数据，所以一进来最大的滚动的距离就是0 
+     */
     // 需要配置probeType属性才能响应scroll事件
     myScroll.on("scroll", function () {
         // console.log("滚动过程中", this.y)
@@ -75,12 +80,13 @@ $(function () {
                 isPullDown = true
             }
             // } else if (this.y <= this.maxScrollY - bottomHeight) { // 因为this.maxScrollY是一直在改变的，所以不能在这里判断
-        } else if (this.y <= maxOffSetY) {
-            // console.log("能够看到上拉加载更多啦")
-            $(".pull-up>p>span").html("松手加载更多")
-            this.maxScrollY = maxOffSetY
-            isPullUp = true
         }
+        /* else if (this.y <= maxOffSetY) {
+           // console.log("能够看到上拉加载更多啦")
+           $(".pull-up>p>span").html("松手加载更多")
+           this.maxScrollY = maxOffSetY
+           isPullUp = true
+       } */
         // console.log(this.y, this.maxScrollY)
     })
 
@@ -89,12 +95,13 @@ $(function () {
             isRefresh = true
             // 去网络刷新数据
             refreshDown()
-        } else if (isPullUp && !isRefresh) {
-            $(".pull-up>p>span").html("加载中。。。")
-            isRefresh = true
-            // 去网络刷新数据
-            refreshDown()
         }
+        /*  else if (isPullUp && !isRefresh) {
+             $(".pull-up>p>span").html("加载中。。。")
+             isRefresh = true
+             // 去网络刷新数据
+             refreshDown()
+         } */
     })
 
     function refreshDown() {
@@ -108,15 +115,15 @@ $(function () {
         }, 3000)
     }
 
-    function refreshUp() {
-        setTimeout(function () {
-            console.log("数据加载完毕")
-            isPullUp = false
-            isRefresh = false
-            myScroll.maxScrollY = maxOffSetY + bottomHeight
-            myScroll.scrollTo(0, myScroll.maxScrollY)
-        }, 3000)
-    }
+    /*  function refreshUp() {
+         setTimeout(function () {
+             console.log("数据加载完毕")
+             isPullUp = false
+             isRefresh = false
+             myScroll.maxScrollY = maxOffSetY + bottomHeight
+             myScroll.scrollTo(0, myScroll.maxScrollY)
+         }, 3000)
+     } */
 
     /* 获取Banner的数据 */
     HomeApis.getHomeBanner().then(function (data) {
@@ -269,4 +276,13 @@ $(function () {
         }
         return res
     }
+
+    /* 
+    等待所有图片都加载完成再刷新
+    */
+    setTimeout(function () {
+        console.log(myScroll.maxScrollY)
+        myScroll.refresh()
+        console.log(myScroll.maxScrollY)
+    }, 5000);
 })
