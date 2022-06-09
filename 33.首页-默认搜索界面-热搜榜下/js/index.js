@@ -57,6 +57,14 @@ $(function () {
             return historyArray
         }
 
+        // 处理热搜榜
+        HomeApis.getHomeHotDetail().then(function (data) {
+            console.log('获取热搜榜数据：', data)
+            let html = template('hotDetail', data)
+            $(".hot-bottom").html(html)
+        }).catch(function (error) {
+            console.log(error)
+        })
 
     }
 

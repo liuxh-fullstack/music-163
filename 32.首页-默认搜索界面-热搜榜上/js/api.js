@@ -54,10 +54,6 @@
         static getHomeDJ() {
             return NJHttp.get('/personalized/djprogram')
         }
-
-        static getHomeHotDetail() {
-            return NJHttp.get("/search/hot/detail")
-        }
     }
 
     window.NJHttp = NJHttp

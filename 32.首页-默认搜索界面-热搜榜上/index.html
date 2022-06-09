@@ -90,7 +90,17 @@
                         <h6>热搜榜</h6>
                     </div>
                     <ul class="hot-bottom">
-                        
+                        <li>
+                            <span class="hot-left">1</span>
+                            <div class="hot-right">
+                                <p>
+                                    <strong>哪吒</strong>
+                                    <span>3245182</span>
+                                    <img src="https://img2.baidu.com/it/u=3792224311,3956852196&fm=253&fmt=auto&app=138&f=PNG?w=500&h=305" alt="">  
+                                </p>                              </p>
+                                <p>《哪吒之魔童降世》超然来袭！</p>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -211,23 +221,6 @@
                </ul>
             </div>
         </div>
-    </script>
-
-    <!-- 热搜榜 -->
-    <script type="text/html" id="hotDetail">
-        <% for(let i=0,len=data.length;i<len;i++){ %>
-        <li>
-            <span class="hot-left"><%=(i+1)%></span>
-            <div class="hot-right">
-                <p>
-                    <strong><%= data[i].searchWord%></strong>
-                    <span><%= data[i].score%></span>
-                    <img src="<%= data[i].iconUrl%>" alt="">  
-                </p>                  
-                <p><%= data[i].content%></p>
-            </div>
-        </li>
-        <% } %>
     </script>
 
     <!-- 底部 -->
