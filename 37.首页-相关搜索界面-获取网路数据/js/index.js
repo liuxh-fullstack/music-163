@@ -80,24 +80,6 @@ $(function () {
         probeType: 3
     })
 
-
-    // 底部相关
-    let pageArray = ["home", "video", "me", "friend", "account"]
-
-    $(".footer>ul>li").click(function () {
-        $(this).addClass('active').siblings().removeClass("active")
-        let url = $(this).find("img").attr("src")
-        let newUrl = url.replace("normal", "selected")
-        $(this).find("img").attr("src", newUrl)
-        $(this).siblings().find("img").forEach(function (oImg) {
-            oImg.src = oImg.src.replace("selected", "normal")
-        })
-
-        // 获取点击的底部按钮在父元素中的索引
-        let currentName = pageArray[$(this).index()]
-        $(".header").removeClass().addClass("header " + currentName)
-    })
-
     // 处理相关搜索界面
     $(".header-center-box>input")[0].oninput = throttle(function () {
         console.log(this.value)
@@ -117,20 +99,38 @@ $(function () {
                 $(".current-bottom>li").remove()
                 data.result.allMatch.forEach(function (obj) {
                     let oLi = $(`
-                        <li>
-                            <img src="images/search/topbar-search.png" alt="">
-                            <p>${obj.keyword}</p>
-                        </li>
-                    `)
+                            <li>
+                                <img src="images/search/topbar-search.png" alt="">
+                                <p>${obj.keyword}</p>
+                            </li>
+                        `)
                     $(".current-bottom").append(oLi)
                 })
             }).catch(function (error) {
                 console.log(error)
             })
         }
-
+        // 输入要搜索的内容，搜索后面跟的也要是搜索的内容
         $(".current-top").text(`搜索"${this.value}"`)
     }, 1000)
+
+
+    // 底部相关
+    let pageArray = ["home", "video", "me", "friend", "account"]
+
+    $(".footer>ul>li").click(function () {
+        $(this).addClass('active').siblings().removeClass("active")
+        let url = $(this).find("img").attr("src")
+        let newUrl = url.replace("normal", "selected")
+        $(this).find("img").attr("src", newUrl)
+        $(this).siblings().find("img").forEach(function (oImg) {
+            oImg.src = oImg.src.replace("selected", "normal")
+        })
+
+        // 获取点击的底部按钮在父元素中的索引
+        let currentName = pageArray[$(this).index()]
+        $(".header").removeClass().addClass("header " + currentName)
+    })
 
 
     /*处理下拉刷新公共的内容区域 */

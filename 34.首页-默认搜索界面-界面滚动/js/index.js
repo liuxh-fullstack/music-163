@@ -62,6 +62,7 @@ $(function () {
             console.log('获取热搜榜数据：', data)
             let html = template('hotDetail', data)
             $(".hot-bottom").html(html)
+            // 获取完网络数据需要重新刷新
             serachScroll.refresh()
         }).catch(function (error) {
             console.log(error)

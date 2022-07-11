@@ -54,7 +54,7 @@
         static getHomeDJ() {
             return NJHttp.get('/personalized/djprogram')
         }
-
+        // 热搜榜
         static getHomeHotDetail() {
             return NJHttp.get("/search/hot/detail")
         }

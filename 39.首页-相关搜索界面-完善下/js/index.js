@@ -19,6 +19,7 @@ $(function () {
             })
         }
 
+        // 刷新滚动区域
         serachScroll.refresh()
     })
 
@@ -71,6 +72,7 @@ $(function () {
         console.log('获取热搜榜数据：', data)
         let html = template('hotDetail', data)
         $(".hot-bottom").html(html)
+
         serachScroll.refresh()
     }).catch(function (error) {
         console.log(error)
@@ -107,11 +109,12 @@ $(function () {
         $(".header").removeClass().addClass("header " + currentName)
     })
 
-    // 处理相关搜索界面
+    // 处理相关搜索界面的输入事件
     $(".header-center-box>input")[0].oninput = throttle(function () {
         console.log(this.value)
         if (this.value.length === 0) {// 说明用户没有输入数据
             $(".search-ad").show()
+            // 解决多次点击取消和进入会出现历史搜索的空白内容
             // $(".search-history").show()
             $(".search-hot").show()
             $(".search-current").hide()
@@ -133,6 +136,8 @@ $(function () {
                     `)
                     $(".current-bottom").append(oLi)
                 })
+
+
                 serachScroll.refresh()
             }).catch(function (error) {
                 console.log(error)
@@ -140,6 +145,8 @@ $(function () {
         }
 
         $(".current-top").text(`搜索"${this.value}"`)
+
+
         serachScroll.refresh()
     }, 1000)
 

@@ -2,6 +2,7 @@ $(function () {
     $(".header-center-box>input").focus(function () {
         $(".header").addClass('active')
         $(".header-container").show()
+        // 重新计算滚动范围
         serachScroll.refresh()
     })
 

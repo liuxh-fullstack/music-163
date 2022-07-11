@@ -25,6 +25,7 @@ $(function () {
     $(".header-cancel").click(function () {
         $(".header").removeClass("active")
         $(".header-container").hide()
+        // 手动触发oninput
         $(".header-center-box>input")[0].oninput()
     })
 
@@ -51,6 +52,7 @@ $(function () {
         localStorage.setItem("history", JSON.stringify(historyArray))
     })
 
+    // 清空搜索历史
     $(".history-top>img").click(function () {
         localStorage.removeItem("history")
         $(".search-history").hide()
@@ -89,24 +91,6 @@ $(function () {
         probeType: 3
     })
 
-
-    // 底部相关
-    let pageArray = ["home", "video", "me", "friend", "account"]
-
-    $(".footer>ul>li").click(function () {
-        $(this).addClass('active').siblings().removeClass("active")
-        let url = $(this).find("img").attr("src")
-        let newUrl = url.replace("normal", "selected")
-        $(this).find("img").attr("src", newUrl)
-        $(this).siblings().find("img").forEach(function (oImg) {
-            oImg.src = oImg.src.replace("selected", "normal")
-        })
-
-        // 获取点击的底部按钮在父元素中的索引
-        let currentName = pageArray[$(this).index()]
-        $(".header").removeClass().addClass("header " + currentName)
-    })
-
     // 处理相关搜索界面
     $(".header-center-box>input")[0].oninput = throttle(function () {
         console.log(this.value)
@@ -141,6 +125,23 @@ $(function () {
         $(".current-top").text(`搜索"${this.value}"`)
     }, 1000)
 
+
+    // 底部相关
+    let pageArray = ["home", "video", "me", "friend", "account"]
+
+    $(".footer>ul>li").click(function () {
+        $(this).addClass('active').siblings().removeClass("active")
+        let url = $(this).find("img").attr("src")
+        let newUrl = url.replace("normal", "selected")
+        $(this).find("img").attr("src", newUrl)
+        $(this).siblings().find("img").forEach(function (oImg) {
+            oImg.src = oImg.src.replace("selected", "normal")
+        })
+
+        // 获取点击的底部按钮在父元素中的索引
+        let currentName = pageArray[$(this).index()]
+        $(".header").removeClass().addClass("header " + currentName)
+    })
 
     /*处理下拉刷新公共的内容区域 */
     // 获取svg路径的长度
